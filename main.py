@@ -1,8 +1,9 @@
 import os
-
+from decouple import config
 from discord.ext import commands, tasks
 
-TOKEN = "ODg2NTI1MjEzMzYwMTQwMzU4.YT228Q.FQ6Uv9q6vPdOPhaX95aPpWTG_j4"
+
+TOKEN = config("DISCORD_TOKEN")
 
 client = commands.Bot(command_prefix=".")
 
