@@ -16,7 +16,7 @@ class Anime(commands.Cog):
         await ctx.send(res)
 
     @commands.command()
-    @restrict_to_channel
+    @restrict_to_channel("hentaiwithsenpai")
     async def nsfw_anime(self, ctx, *, category=None):
         res = await self.anime.get_nsfw_gif(category)
         await ctx.send(res)

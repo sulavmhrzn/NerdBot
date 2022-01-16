@@ -52,7 +52,7 @@ class Meme(commands.Cog):
         await ctx.send(embed=embed)
 
     @commands.command()
-    @restrict_to_channel
+    @restrict_to_channel("hentaiwithsenpai")
     async def nsfw_reddit(self, ctx):
         result = await self._get_reddit(nsfw=True)
         await ctx.send(result)
