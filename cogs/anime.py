@@ -2,6 +2,7 @@ import discord
 from discord.ext import commands
 
 from wrappers.anime_wrapper import AnimeGIF
+from decorators.restrict_to_channel import restrict_to_channel
 
 
 class Anime(commands.Cog):
@@ -15,6 +16,7 @@ class Anime(commands.Cog):
         await ctx.send(res)
 
     @commands.command()
+    @restrict_to_channel
     async def nsfw_anime(self, ctx, *, category=None):
         res = await self.anime.get_nsfw_gif(category)
         await ctx.send(res)

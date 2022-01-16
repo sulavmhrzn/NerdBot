@@ -4,7 +4,7 @@ from collections import namedtuple
 import discord
 import httpx
 from discord.ext import commands
-
+from decorators.restrict_to_channel import restrict_to_channel
 
 MemeResult = namedtuple("MemeResult", ["subreddit", "title", "url"])
 
@@ -52,6 +52,7 @@ class Meme(commands.Cog):
         await ctx.send(embed=embed)
 
     @commands.command()
+    @restrict_to_channel
     async def nsfw_reddit(self, ctx):
         result = await self._get_reddit(nsfw=True)
         await ctx.send(result)
