@@ -1,6 +1,7 @@
-from wrappers.ronb_wrapper import RONBWrapper
 import discord
 from discord.ext import commands
+
+from wrappers.ronb_wrapper import RONBWrapper
 
 
 class RONB(commands.Cog):
@@ -10,6 +11,11 @@ class RONB(commands.Cog):
 
     @commands.command()
     async def ronb(self, ctx, *, count=1):
+        """
+        Sends you the latest update from Routine Of Nepal Banda twitter page.
+        Usage:
+        .ronb [count]
+        """
         for i in self.api.get_updates(count=count):
             await ctx.send(i.full_text)
 

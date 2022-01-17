@@ -1,7 +1,7 @@
 import os
+
 from decouple import config
 from discord.ext import commands
-
 
 TOKEN = config("DISCORD_TOKEN")
 
