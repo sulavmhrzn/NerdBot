@@ -9,7 +9,7 @@ from decorators.restrict_to_channel import restrict_to_channel
 MemeResult = namedtuple("MemeResult", ["subreddit", "title", "url"])
 
 
-class Meme(commands.Cog):
+class Reddit(commands.Cog):
     SUBREDDITS = ["meme", "dankmemes", "terriblefacebookmemes"]
     NSFW_SUBREDDITS = ["nsfw", "gonewild", "JizzzToThis"]
 
@@ -59,4 +59,4 @@ class Meme(commands.Cog):
 
 
 def setup(client):
-    client.add_cog(Meme(client))
+    client.add_cog(Reddit(client))
