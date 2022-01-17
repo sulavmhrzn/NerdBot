@@ -13,23 +13,23 @@ class Initialize(commands.Cog):
         )
         print("Bot is ready")
 
-    @commands.command()
+    @commands.command(hidden=True)
     async def ping(self, ctx):
         await ctx.send("Pong!")
 
-    @commands.command()
+    @commands.command(hidden=True)
     @commands.has_permissions(administrator=True)
     async def load(self, ctx, extension):
         self.client.load_extension(f"cogs.{extension}")
         await ctx.send(f"Extension: {extension} loaded!")
 
-    @commands.command()
+    @commands.command(hidden=True)
     @commands.has_permissions(administrator=True)
     async def unload(self, ctx, extension):
         self.client.unload_extension(f"cogs.{extension}")
         await ctx.send(f"Extension: {extension} unloaded!")
 
-    @commands.command()
+    @commands.command(hidden=True)
     @commands.has_permissions(administrator=True)
     async def reload(self, ctx, extension):
         self.client.unload_extension(f"cogs.{extension}")
