@@ -8,7 +8,7 @@ from wrappers.anime_wrapper import AnimeGIF
 class Anime(commands.Cog):
     def __init__(self, client):
         self.client = client
-        self.anime = AnimeGIF()
+        self.anime: AnimeGIF = AnimeGIF()
 
     @commands.command()
     async def sfw_anime(self, ctx, *, category=None):
