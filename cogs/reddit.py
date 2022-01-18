@@ -8,13 +8,12 @@ from wrappers.reddit_wrapper import RedditWrapper
 class Reddit(commands.Cog):
     def __init__(self, client):
         self.client = client
-        self.reddit = RedditWrapper()
+        self.reddit: RedditWrapper = RedditWrapper()
 
     @commands.command()
     async def meme(self, ctx):
-        """
-        Sends you a random meme.
-        """
+        """Sends you a random meme."""
+
         result = await self.reddit.format_data()
         embed = discord.Embed()
         embed.set_author(
@@ -30,8 +29,9 @@ class Reddit(commands.Cog):
     @restrict_to_channel("hentaiwithsenpai")
     async def nsfw_reddit(self, ctx):
         """Sends you a Not Safe For Work media."""
+
         result = await self.reddit.format_data(nsfw=True)
-        await ctx.send(result)
+        await ctx.send(result.url)
 
 
 def setup(client):

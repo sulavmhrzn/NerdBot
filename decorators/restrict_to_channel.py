@@ -2,6 +2,8 @@ import functools
 
 
 def restrict_to_channel(channel_name):
+    """Decorator to restrict a certain command to a specified channel only."""
+
     def wrapper(func):
         @functools.wraps(func)
         async def decorator(self, ctx, *args, **kwargs):
