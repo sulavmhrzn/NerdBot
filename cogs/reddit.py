@@ -26,7 +26,7 @@ class Reddit(commands.Cog):
         await ctx.send(embed=embed)
 
     @commands.command()
-    @restrict_to_channel("hentaiwithsenpai")
+    @restrict_to_channel(["🔞hentaiwithsenpai", "bot-test"])
     async def nsfw_reddit(self, ctx):
         """Sends you a Not Safe For Work media."""
 

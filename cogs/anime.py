@@ -17,7 +17,7 @@ class Anime(commands.Cog):
         await ctx.send(res)
 
     @commands.command()
-    @restrict_to_channel("hentaiwithsenpai")
+    @restrict_to_channel(["🔞hentaiwithsenpai", "bot-test"])
     async def nsfw_anime(self, ctx, *, category=None):
         """
         Sends you a Not Safe For Work Anime Gif.

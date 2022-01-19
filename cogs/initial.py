@@ -9,7 +9,8 @@ class Initialize(commands.Cog):
     @commands.Cog.listener()
     async def on_ready(self):
         await self.client.change_presence(
-            status=discord.Status.idle, activity=discord.Game(name="Doing your mom :)")
+            status=discord.Status.online,
+            activity=discord.Game(name="Doing your mom :)"),
         )
         print("Bot is ready")
 
