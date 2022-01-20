@@ -10,7 +10,7 @@ class RONB(commands.Cog):
         self.api = RONBWrapper()
 
     @commands.command()
-    async def ronb(self, ctx, *, count=1):
+    async def ronb(self, ctx, *, count: int = 1):
         """
         Sends you the latest update from Routine Of Nepal Banda twitter page.
         Usage:

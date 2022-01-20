@@ -12,5 +12,14 @@ class RONBWrapper:
             tweet_mode="extended",
         )
 
-    def get_updates(self, screen_name="RONBupdates", count=10):
+    def get_updates(self, screen_name: str = "RONBupdates", count: int = 10) -> list:
+        """Given a twitter username returns `count` number of tweets
+
+        Args:
+            screen_name (str, optional): Twitter username. Defaults to "RONBupdates".
+            count (int, optional): Number of tweets to fetch. Defaults to 10.
+
+        Returns:
+            list: List of tweets
+        """
         return self.api.GetUserTimeline(screen_name=screen_name, count=count)
