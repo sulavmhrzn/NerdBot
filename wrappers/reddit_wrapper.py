@@ -3,6 +3,7 @@ import typing
 from dataclasses import dataclass
 
 import httpx
+from constants import reddit
 
 
 @dataclass
@@ -13,9 +14,9 @@ class RedditResult:
 
 
 class RedditWrapper:
-    SUBREDDITS = ["meme", "dankmemes", "terriblefacebookmemes"]
-    NSFW_SUBREDDITS = ["nsfw", "gonewild", "JizzzToThis"]
-    BASE_URL = f"https://www.reddit.com/r/"
+    SUBREDDITS: list = reddit.SUBREDDITS
+    NSFW_SUBREDDITS: list = reddit.NSFW_SUBREDDITS
+    BASE_URL: str = f"https://www.reddit.com/r/"
 
     def __init__(self):
         self.async_client: httpx.AsyncClient = httpx.AsyncClient
