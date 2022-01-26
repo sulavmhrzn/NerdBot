@@ -42,15 +42,15 @@ class TiktokWrapper:
 
     async def download_video(self):
         video_url = await self.get_video()
-        print("downloading video")
 
         async with self.async_client() as client:
             r = await client.get(video_url)
-        print(r)
+
+        if not os.path.exists("video"):
+            os.makedirs("video")
 
         with open(f"{os.getcwd()}/video/test.mp4", "wb") as f:
             f.write(r.content)
-        print("downloaded video")
 
     async def delete_video(self):
         os.remove(f"{os.getcwd()}/video/test.mp4")
