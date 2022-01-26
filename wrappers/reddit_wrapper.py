@@ -3,6 +3,7 @@ import typing
 from dataclasses import dataclass
 
 import httpx
+
 from constants import reddit
 
 
