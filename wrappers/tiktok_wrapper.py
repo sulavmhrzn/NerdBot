@@ -29,31 +29,51 @@ class TiktokWrapper:
         }
 
     async def get_video(self):
+        result = {}
         datas = await self.get_token()
         async with self.async_client() as client:
+            print("inside client")
             r = await client.post(
-                "https://musicaldown.com/download", headers=self.headers, data=datas
+                "https://musicaldown.com/download",
+                headers=self.headers,
+                data=datas,
             )
+
+        if (
+            "location" in r.headers.keys()
+            and r.headers["location"] == "/en/?err=Video is private!"
+        ):
+            result = {"err": True, "msg": "Video is private"}
+            return result
+
         soup = BeautifulSoup(r.text, "html.parser")
         download_url = soup.find_all(
             "a", {"class": "btn waves-effect waves-light orange"}
         )[1]["href"]
-        return download_url
+
+        result = {"err": False, "msg": download_url}
+        return result
 
     async def download_video(self):
         video_url = await self.get_video()
+        file_path = f"{os.getcwd()}/video/video.mp4"
 
-        async with self.async_client() as client:
-            r = await client.get(video_url)
+        if not video_url["err"]:
+            async with self.async_client() as client:
+                r = await client.get(video_url["msg"])
 
-        if not os.path.exists("video"):
-            os.makedirs("video")
+            if not os.path.exists("video"):
+                os.makedirs("video")
 
-        with open(f"{os.getcwd()}/video/test.mp4", "wb") as f:
-            f.write(r.content)
+            with open(file_path, "wb") as f:
+                f.write(r.content)
+            return {"err": False, "msg": file_path}
+
+        return video_url
 
     async def delete_video(self):
-        os.remove(f"{os.getcwd()}/video/test.mp4")
+        file_path = f"{os.getcwd()}/video/video.mp4"
+        os.remove(file_path)
 
 
 if __name__ == "__main__":
