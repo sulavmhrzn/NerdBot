@@ -32,7 +32,6 @@ class TiktokWrapper:
         result = {}
         datas = await self.get_token()
         async with self.async_client() as client:
-            print("inside client")
             r = await client.post(
                 "https://musicaldown.com/download",
                 headers=self.headers,
