@@ -1,4 +1,3 @@
-import asyncio
 import os
 
 import httpx
@@ -13,6 +12,7 @@ class TiktokWrapper:
         self.async_client = httpx.AsyncClient
         self.musical_down_url = "https://musicaldown.com/en/"
         self.headers = {}
+        self.download_file_path = f"{os.getcwd()}/video/video.mp4"
 
     async def get_token(self):
         async with self.async_client() as client:
@@ -54,34 +54,29 @@ class TiktokWrapper:
         return result
 
     async def download_video(self):
+        RETRY = 5
         video_url = await self.get_video()
-        file_path = f"{os.getcwd()}/video/video.mp4"
 
-        if not video_url["err"]:
-            async with self.async_client() as client:
-                r = await client.get(video_url["msg"])
+        if video_url["err"]:
+            return video_url
 
-            if not os.path.exists("video"):
-                os.makedirs("video")
+        async with self.async_client() as client:
+            while RETRY:
+                try:
+                    r = await client.get(video_url["msg"])
+                    if r.status_code == 200:
+                        break
+                except httpx.TimeoutException:
+                    RETRY -= 1
+                    continue
 
-            with open(file_path, "wb") as f:
-                f.write(r.content)
-            return {"err": False, "msg": file_path}
+        if not os.path.exists("video"):
+            os.makedirs("video")
 
-        return video_url
+        with open(self.download_file_path, "wb") as f:
+            f.write(r.content)
+
+        return {"err": False, "msg": self.download_file_path}
 
     async def delete_video(self):
-        file_path = f"{os.getcwd()}/video/video.mp4"
-        os.remove(file_path)
-
-
-if __name__ == "__main__":
-    import asyncio
-
-    async def main():
-        t = TiktokWrapper(
-            "https://www.tiktok.com/@jailyneojeda/video/7054235237194403119?is_from_webapp=1&sender_device=pc&web_id7047436364502025729"
-        )
-        await t.download_video()
-
-    asyncio.run(main())
+        os.remove(self.download_file_path)
